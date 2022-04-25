@@ -52,8 +52,17 @@ namespace SamuraiApp.API.Controllers
 
         // PUT api/<SamuraisController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Samurai>> Put(int id, Samurai samurai)
         {
+            try
+            {
+                var result = _samurais.Update(id, samurai);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<SamuraisController>/5
